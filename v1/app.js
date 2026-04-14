@@ -1,8 +1,8 @@
 let state = null;
 
-function loadState(){
+function loadState() {
   const saved = localStorage.getItem('ffa_os');
-  if(saved){
+  if (saved) {
     state = JSON.parse(saved);
     render();
   } else {
@@ -16,19 +16,98 @@ function loadState(){
   }
 }
 
-function saveState(){
+function saveState() {
   localStorage.setItem('ffa_os', JSON.stringify(state));
 }
 
-function render(){
+function render() {
   buildFocus(state);
   buildOverview(state.overview);
   buildTabs(state.areas);
+  ensureUtilityBar();
 }
 
-function addTask(area){
+function ensureUtilityBar() {
+  let bar = document.getElementById('utilityBar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'utilityBar';
+    bar.style.margin = '0 0 16px';
+    bar.style.display = 'flex';
+    bar.style.gap = '8px';
+    bar.style.flexWrap = 'wrap';
+
+    const exportBtn = document.createElement('button');
+    exportBtn.innerText = 'Export data';
+    exportBtn.onclick = exportData;
+
+    const importBtn = document.createElement('button');
+    importBtn.innerText = 'Import data';
+    importBtn.onclick = () => document.getElementById('importFileInput').click();
+
+    const resetBtn = document.createElement('button');
+    resetBtn.innerText = 'Reset local data';
+    resetBtn.onclick = resetLocalData;
+
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.id = 'importFileInput';
+    input.accept = 'application/json';
+    input.style.display = 'none';
+    input.onchange = importData;
+
+    bar.appendChild(exportBtn);
+    bar.appendChild(importBtn);
+    bar.appendChild(resetBtn);
+    bar.appendChild(input);
+
+    const header = document.querySelector('.page-header');
+    header.insertAdjacentElement('afterend', bar);
+  }
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {
+    type: 'application/json'
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'ffa-os-data.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      state = imported;
+      saveState();
+      render();
+      alert('Import successful');
+    } catch (err) {
+      alert('Invalid JSON file');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetLocalData() {
+  const confirmed = confirm('Reset this browser back to starter data?');
+  if (!confirmed) return;
+
+  localStorage.removeItem('ffa_os');
+  loadState();
+}
+
+function addTask(area) {
   const title = prompt('Task name');
-  if(!title) return;
+  if (!title) return;
 
   state.areas[area].push({
     title,
@@ -40,7 +119,7 @@ function addTask(area){
   render();
 }
 
-function updateTask(area, index){
+function updateTask(area, index) {
   const item = state.areas[area][index];
 
   const status = prompt(
@@ -48,13 +127,13 @@ function updateTask(area, index){
     item.status
   );
 
-  if(status) item.status = status;
+  if (status) item.status = status;
 
   saveState();
   render();
 }
 
-function buildTabs(areas){
+function buildTabs(areas) {
   const tabBar = document.getElementById('tabs');
   const content = document.getElementById('tabContents');
 
@@ -82,12 +161,10 @@ function buildTabs(areas){
       const div = document.createElement('div');
       div.className = 'item';
       div.onclick = () => updateTask(key, idx);
-
       div.innerHTML = `
         <div>${item.title}</div>
-        <small>${item.owner} • ${item.status}</small>
+        <small>${item.owner || ''} • ${item.status || ''}</small>
       `;
-
       pane.appendChild(div);
     });
 
@@ -95,7 +172,7 @@ function buildTabs(areas){
   });
 }
 
-function buildFocus(data){
+function buildFocus(data) {
   const el = document.getElementById('focusStrip');
   el.innerHTML = '';
 
@@ -115,7 +192,7 @@ function buildFocus(data){
   });
 }
 
-function buildOverview(o){
+function buildOverview(o) {
   const el = document.getElementById('overviewGrid');
   el.innerHTML = '';
 
@@ -127,7 +204,7 @@ function buildOverview(o){
   });
 }
 
-function switchTab(id){
+function switchTab(id) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
