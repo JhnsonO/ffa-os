@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFA OS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Footy For All</p>
+        <h1>FFA OS</h1>
+        <p class="subtext">Internal control panel for sessions, growth, revenue, and admin.</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-secondary" id="refreshBtn">Refresh</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-grid" id="kpiGrid">
+        <article class="metric-card">
+          <p class="metric-label">Sessions this week</p>
+          <p class="metric-value" id="sessionsValue">-</p>
+          <p class="metric-note" id="sessionsNote">Loading...</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Players booked</p>
+          <p class="metric-value" id="playersValue">-</p>
+          <p class="metric-note" id="playersNote">Loading...</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Weekly revenue</p>
+          <p class="metric-value" id="revenueValue">-</p>
+          <p class="metric-note" id="revenueNote">Loading...</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Average fill rate</p>
+          <p class="metric-value" id="fillRateValue">-</p>
+          <p class="metric-note" id="fillRateNote">Loading...</p>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel panel-wide">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">Focus</p>
+              <h2>This week</h2>
+            </div>
+          </div>
+          <div class="focus-grid">
+            <div class="focus-card">
+              <h3>Today</h3>
+              <ul id="todayList" class="plain-list"></ul>
+            </div>
+            <div class="focus-card">
+              <h3>Priority actions</h3>
+              <ul id="priorityList" class="plain-list"></ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">Alerts</p>
+              <h2>Watchouts</h2>
+            </div>
+          </div>
+          <ul id="alertsList" class="stack-list"></ul>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">Actions</p>
+              <h2>Quick commands</h2>
+            </div>
+          </div>
+          <div class="action-grid">
+            <button class="btn" data-action="whatsapp">Post WhatsApp list</button>
+            <button class="btn" data-action="content">Generate content ideas</button>
+            <button class="btn" data-action="upload">Trigger upload flow</button>
+            <button class="btn" data-action="league">Review league table tasks</button>
+          </div>
+          <p class="helper-text" id="actionFeedback">Action buttons are placeholders for future automation hooks.</p>
+        </article>
+
+        <article class="panel panel-wide">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">Schedule</p>
+              <h2>Weekly sessions</h2>
+            </div>
+          </div>
+          <div id="scheduleTable" class="schedule-table"></div>
+        </article>
+
+        <article class="panel panel-wide">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">Pipeline</p>
+              <h2>Growth channels</h2>
+            </div>
+          </div>
+          <div id="channelList" class="channel-grid"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
