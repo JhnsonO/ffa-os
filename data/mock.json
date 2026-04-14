@@ -1,1 +1,74 @@
-{"sessions":6,"players":72,"revenue":385,"fillRate":75,"schedule":[{"day":"Mon","venue":"St Margaret's","price":0},{"day":"Tue","venue":"St Margaret's","price":4.99},{"day":"Wed","venue":"St Margaret's","price":4.99}]}
+{
+  "focus": {
+    "now": [
+      { "title": "Set up Google Business Profile" }
+    ],
+    "this_week": [
+      { "title": "Finish upload automation" }
+    ],
+    "waiting": [
+      { "title": "Kris handling clips" }
+    ],
+    "delegated": [
+      { "title": "PA managing bookings" }
+    ],
+    "bottlenecks": [
+      { "title": "Post-session uploads" }
+    ]
+  },
+  "overview": {
+    "sessions_per_week": 6,
+    "capacity": "18-20",
+    "members": "10-20",
+    "league_players": 32
+  },
+  "areas": {
+    "action_plan": [
+      {
+        "title": "Set up Google Business Profile",
+        "owner": "Johnson",
+        "status": "next"
+      },
+      {
+        "title": "List on football discovery platforms",
+        "owner": "Johnson",
+        "status": "waiting"
+      }
+    ],
+    "operations": [
+      {
+        "title": "Post-session uploads still bottlenecked",
+        "owner": "Johnson",
+        "status": "in_progress"
+      }
+    ],
+    "revenue": [
+      {
+        "title": "Land first sponsor",
+        "owner": "Johnson",
+        "status": "next"
+      }
+    ],
+    "growth": [
+      {
+        "title": "Website SEO for local search",
+        "owner": "Johnson",
+        "status": "next"
+      }
+    ],
+    "pain_points": [
+      {
+        "title": "Not enough players in the pipeline",
+        "owner": "Johnson",
+        "status": "next"
+      }
+    ],
+    "oev": [
+      {
+        "title": "Working stitch prototype",
+        "owner": "External",
+        "status": "in_progress"
+      }
+    ]
+  }
+}
